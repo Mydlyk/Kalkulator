@@ -10,48 +10,14 @@ import SwiftUI
 
 struct ContentView: View {
     
-        func calculate(first: Int, second: Int, operation :String) -> Double{
-            
-            switch operation {
-            case "+":
-                return add(first:Double(first), second: Double(second))
-
-            case "-":
-                return sub(first:Double(first), second: Double(second))
-
-            case "*":
-                return multiply(first:Double(first), second: Double(second))
-            case "/":
-               return div(first: Double(first), second: Double(second))
-
-            case "sin":
-                return sinus(first: Double(first))
-            
-                
-            default:
-                print("secret code")
-            }
-            
-            return 10.2
-            
         
-        
-    }
-    func add(first: Double, second: Double)-> Double {return first + second}
-    func sub(first: Double, second: Double)-> Double {return first - second}
-    func multiply(first: Double, second: Double) -> Double {return first*second}
-    func div(first: Double, second: Double) -> Double {
-        
-        return first/second
-    }
-    func sinus(first: Double) -> Double {return sin(first)}
     
 
     @State var value = ""
     @State var first = ""
     @State var second = ""
     @State var operation = ""
-    @State var huj = 10.0
+    @State var final = 10.0
     var body: some View {
         VStack {
             Text("KALKULATOR")
@@ -172,8 +138,8 @@ struct ContentView: View {
                 })
                 Button(action:{first = value
                     operation = "sin"
-                    huj = calculate(first: Int(first) ?? 0, second: Int(second) ?? 0,operation: operation)
-                value = String(huj)}, label:{
+                    final = operations().calculate(first: Int(first) ?? 0, second: Int(second) ?? 0,operation: operation)
+                value = String(Int(final))}, label:{
                     Text("sin")
                         .frame(width:100,height:60)
                         .border(Color.black,width:2)
@@ -182,8 +148,8 @@ struct ContentView: View {
                 
             }
             Button(action:{second = value
-                huj = calculate(first: Int(first) ?? 0, second: Int(second) ?? 0,operation: operation)
-            value = String(huj)}, label:{
+                final = operations().calculate(first: Int(first) ?? 0, second: Int(second) ?? 0,operation: operation)
+            value = String(Int(final))}, label:{
                 Text("Oblicz")
                     .frame(width:315,height:60)
                     .border(Color.black,width:2)
