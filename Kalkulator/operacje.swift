@@ -21,6 +21,11 @@ struct operations {
             return multiply(first:Double(first), second: Double(second))
         case "/":
             
+            if(second == 0){
+                
+                return 0
+            }
+            
            return div(first: Double(first), second: Double(second))
 
         case "sin":

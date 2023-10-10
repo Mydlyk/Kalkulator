@@ -24,6 +24,12 @@ struct ContentView: View {
                 .font(.title)
                 .padding(100)
             
+            
+            if (second == "0" && operation == "/"){
+                Text("Nie dziel przez 0")
+                
+            }
+            
             Button(action:{value = ""}, label:{
                 Text(value)
                     .frame(width:315,height:60)
@@ -109,9 +115,13 @@ struct ContentView: View {
                         .border(Color.black,width:2)
                         .font(.title)
                 })
-                Button(action:{first = value
+                Button(action:{if(first == "" && operation == ""){
+                    value="-"
+                    operation="-"
+                }else{
+                    first = value
                     value = ""
-                    operation = "-"}, label:{
+                    operation = "-"}}, label:{
                     Text("-")
                         .frame(width:100,height:60)
                         .border(Color.black,width:2)
@@ -139,17 +149,30 @@ struct ContentView: View {
                 Button(action:{first = value
                     operation = "sin"
                     final = operations().calculate(first: Int(first) ?? 0, second: Int(second) ?? 0,operation: operation)
-                value = String(Int(final))}, label:{
+                    value = String(final)
+                    operation = ""
+                    first = ""
+                    second = ""
+                }, label:{
                     Text("sin")
                         .frame(width:100,height:60)
                         .border(Color.black,width:2)
                         .font(.title)
+                    
                 })
                 
             }
             Button(action:{second = value
-                final = operations().calculate(first: Int(first) ?? 0, second: Int(second) ?? 0,operation: operation)
-            value = String(Int(final))}, label:{
+                final = operations().calculate(first: Int(Double(first) ?? 0) , second: Int(second) ?? 0,operation: operation)
+                if (operation == "/"){
+                    value = String(final)
+                }else{
+                    value = String(Int(final))
+                }
+                operation = ""
+                first = ""
+                second = ""
+            }, label:{
                 Text("Oblicz")
                     .frame(width:315,height:60)
                     .border(Color.black,width:2)
